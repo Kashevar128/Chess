@@ -10,6 +10,7 @@ public class ChessTest {
                     x2 = in.nextInt(), y2 = in.nextInt();
             board.move(x1, y1, x2, y2);
             System.out.println(board);
+            /////
         }
     }
 }
