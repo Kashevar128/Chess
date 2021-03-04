@@ -5,11 +5,17 @@ public class ChessBoard {
     public ChessBoard() {
         board = new ChessFigure[8][8];
         board[0][0] = new Rook(0, 0, "white");
-        board[0][1] = new Knight(0, 1, "white");
         board[0][7] = new Rook(0, 7, "white");
-        board[0][1] = new Knight(0, 6, "white");
         board[7][0] = new Rook(7, 0, "black");
         board[7][7] = new Rook(7, 7, "black");
+        board[0][1] = new Knight(0, 1, "white");
+        board[0][6] = new Knight(0, 6, "white");
+        board[7][1] = new Knight(7, 1, "black");
+        board[7][6] = new Knight(7, 6, "black");
+        board[0][2] = new Bishop(0, 2, "white");
+        board[0][5] = new Bishop(0, 5, "white");
+        board[7][2] = new Bishop(7, 2, "black");
+        board[7][5] = new Bishop(7, 5, "black");
     }
 
     protected boolean isInBoard(int x, int y) {
