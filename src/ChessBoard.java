@@ -4,6 +4,7 @@ public class ChessBoard {
     private ChessFigure [][] board;
     public ChessBoard() {
         board = new ChessFigure[8][8];
+
         board[0][0] = new Rook(0, 0, "white");
         board[0][7] = new Rook(0, 7, "white");
         board[7][0] = new Rook(7, 0, "black");
@@ -16,6 +17,26 @@ public class ChessBoard {
         board[0][5] = new Bishop(0, 5, "white");
         board[7][2] = new Bishop(7, 2, "black");
         board[7][5] = new Bishop(7, 5, "black");
+        board[1][0]  = new Pawn(1, 0, "white");
+        board[1][1]  = new Pawn(1, 1, "white");
+        board[1][2]  = new Pawn(1, 2, "white");
+        board[1][3]  = new Pawn(1, 3, "white");
+        board[1][4]  = new Pawn(1, 4, "white");
+        board[1][5]  = new Pawn(1, 5, "white");
+        board[1][6]  = new Pawn(1, 6, "white");
+        board[1][7]  = new Pawn(1, 7, "white");
+        board[6][0]  = new Pawn(6, 0, "black");
+        board[6][1]  = new Pawn(6, 1, "black");
+        board[6][2]  = new Pawn(6, 2, "black");
+        board[6][3]  = new Pawn(6, 3, "black");
+        board[6][4]  = new Pawn(6, 4, "black");
+        board[6][5]  = new Pawn(6, 5, "black");
+        board[6][6]  = new Pawn(6, 6, "black");
+        board[6][7]  = new Pawn(6, 7, "black");
+        board[0][3] = new Queen(0, 3, "white");
+        board[7][3] = new Queen(7, 3, "black");
+        board[0][4] = new King(0, 4, "white");
+        board[7][4] = new King(7, 4, "black");
     }
 
     protected boolean isInBoard(int x, int y) {
