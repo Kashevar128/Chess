@@ -6,8 +6,8 @@ public class Queen extends ChessFigure {
 
     @Override
     public boolean can(int x, int y) {
-        int dx = Math.abs(x - getX());
-        int dy = Math.abs(y - getY());
+        int dx = x - getX();
+        int dy = y - getY();
         if (isInBoard()) {
             return (dy == 0 && dx != 0) || (dx == 0 && dy != 0) || (dx == dy);
         }

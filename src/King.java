@@ -7,8 +7,8 @@ public class King extends ChessFigure {
     @Override
     public boolean can(int x, int y) {
         if (isInBoard()) {
-            int dx = Math.abs( x - getX());
-            int dy = Math.abs(y - getY());
+            int dx = x - getX();
+            int dy = y - getY();
             return (dy == 0 && dx == 1) || (dx == 0 && dy == 1) || (dx == 1 && dy == 1);
         }
         return false;
