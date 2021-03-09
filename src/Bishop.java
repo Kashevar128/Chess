@@ -9,7 +9,9 @@ public class Bishop extends ChessFigure {
     public boolean can(int x, int y) {
         int dx = x - getX();
         int dy = y - getY();
-        if (isInBoard()) return dx == dy;
+        int dxM = Math.abs(dx);
+        int dyM = Math.abs(dy);
+        if (isInBoard()) return dxM == dyM;
         else return false;
     }
 

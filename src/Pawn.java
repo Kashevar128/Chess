@@ -9,7 +9,8 @@ public class Pawn extends ChessFigure {
         if (isInBoard()) {
             int dx = x - getX();
             int dy = y - getY();
-            return dy == 0 && dx == 1 && x - getX() > 0;
+            int dxM = Math.abs(dx);
+            return dy == 0 && dxM == 1 && dx > 0;
         }
         return false;
     }

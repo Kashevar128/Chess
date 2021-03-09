@@ -43,7 +43,7 @@ public class ChessBoard {
         return x >= 0 && y >= 0 && x < 8 && y < 8;
     }
 
-    public void move(int x1, int y1, int x2, int y2) {
+    public void moveOrEat(int x1, int y1, int x2, int y2) {
         if (isInBoard(x1, y1) && board[x1][y1] != null &&
                 board[x1][y1].can(x2, y2)) {
             ChessFigure figure = board[x1][y1];
@@ -51,6 +51,26 @@ public class ChessBoard {
             figure.setXY(x2, y2);
             board[x1][y1] = null;
         } else System.out.println("Невозможно сделать ход " + x2 + " " + y2);
+    }
+
+    public boolean pathIsClear (int x1, int y1, int x2, int y2) {
+        int dxM = Math.abs(x2 - x1);
+        int dyM = Math.abs(y2 - y1);
+        int xMin, yMin, xMax, yMax;
+        if(dxM == dyM) {
+
+            xMin = Math.min(x1, x2);
+            xMax = Math.max(x1, x2);
+
+            yMin = Math.min(y1, y2);
+            yMax = Math.max(y1, y2);
+
+            for (int i = xMin; i < xMax; i++) {
+                for (int j = yMin++; j <= yMax; j++) {
+                    
+                }
+            }
+        }
     }
 
     @Override

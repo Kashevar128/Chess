@@ -8,8 +8,10 @@ public class Queen extends ChessFigure {
     public boolean can(int x, int y) {
         int dx = x - getX();
         int dy = y - getY();
+        int dxM = Math.abs(dx);
+        int dyM = Math.abs(dy);
         if (isInBoard()) {
-            return (dy == 0 && dx != 0) || (dx == 0 && dy != 0) || (dx == dy);
+            return (dy == 0 && dx != 0) || (dx == 0 && dy != 0) || (dxM == dyM);
         }
         return false;
     }
