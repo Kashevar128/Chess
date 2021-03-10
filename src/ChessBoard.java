@@ -45,7 +45,7 @@ public class ChessBoard {
 
     public void moveOrEat(int x1, int y1, int x2, int y2) {
         if (isInBoard(x1, y1) && board[x1][y1] != null &&
-                board[x1][y1].can(x2, y2)) {
+                board[x1][y1].can(x2, y2) && pathIsClear(x1, y1, x2, y2)) {
             ChessFigure figure = board[x1][y1];
             board[x2][y2] = figure;
             figure.setXY(x2, y2);
@@ -53,24 +53,51 @@ public class ChessBoard {
         } else System.out.println("Невозможно сделать ход " + x2 + " " + y2);
     }
 
+    public boolean yourOwnFigure(ChessFigure figure) {
+
+    }
+
     public boolean pathIsClear (int x1, int y1, int x2, int y2) {
-        int dxM = Math.abs(x2 - x1);
-        int dyM = Math.abs(y2 - y1);
-        int xMin, yMin, xMax, yMax;
-        if(dxM == dyM) {
+        if(!board[x1][y1].isKnight()) {
+            int dxM = Math.abs(x2 - x1);
+            int dyM = Math.abs(y2 - y1);
 
-            xMin = Math.min(x1, x2);
-            xMax = Math.max(x1, x2);
+            int xMin = Math.min(x1, x2);
+            int xMax = Math.max(x1, x2);
 
-            yMin = Math.min(y1, y2);
-            yMax = Math.max(y1, y2);
+            int yMin = Math.min(y1, y2);
+            int yMax = Math.max(y1, y2);
 
-            for (int i = xMin; i < xMax; i++) {
-                for (int j = yMin++; j <= yMax; j++) {
-                    
+            if(dxM == dyM) {
+                for (int i = xMin + 1; i < xMax; i++) {
+                    for (int j = yMin + 1; j < yMax; j++) {
+                        if((xMin == x1 && yMin == y1) || (xMax == x1 && yMax == y1)) {
+                            if(!board[i][i].equals(" _")) return false;
+                        }
+                        if((xMax == x1 && yMin == y1) || (xMin == x1 && yMax == y1)) {
+                            if(!board[i][yMax - i - 1].equals(" _")) return false;
+                        }
+                    }
+                }
+            }
+
+            if (xMin == xMax) {
+                for (int i = xMin; i <= xMax; i++) {
+                    for (int j = yMin + 1; j < yMax; j++) {
+                        if(!board[i][j].equals(" _")) return false;
+                    }
+                }
+            }
+
+            if (yMin == yMax) {
+                for (int i = xMin + 1; i < xMax; i++) {
+                    for (int j = yMin; j <= yMax; j++) {
+                        if(!board[i][j].equals(" _")) return false;
+                    }
                 }
             }
         }
+        return true;
     }
 
     @Override
