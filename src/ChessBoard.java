@@ -1,7 +1,6 @@
-import java.util.Arrays;
-
 public class ChessBoard {
-    private ChessFigure [][] board;
+    private ChessFigure[][] board;
+
     public ChessBoard() {
         board = new ChessFigure[8][8];
 
@@ -17,22 +16,22 @@ public class ChessBoard {
         board[0][5] = new Bishop(0, 5, "white");
         board[7][2] = new Bishop(7, 2, "black");
         board[7][5] = new Bishop(7, 5, "black");
-        board[1][0]  = new Pawn(1, 0, "white");
-        board[1][1]  = new Pawn(1, 1, "white");
-        board[1][2]  = new Pawn(1, 2, "white");
-        board[1][3]  = new Pawn(1, 3, "white");
-        board[1][4]  = new Pawn(1, 4, "white");
-        board[1][5]  = new Pawn(1, 5, "white");
-        board[1][6]  = new Pawn(1, 6, "white");
-        board[1][7]  = new Pawn(1, 7, "white");
-        board[6][0]  = new Pawn(6, 0, "black");
-        board[6][1]  = new Pawn(6, 1, "black");
-        board[6][2]  = new Pawn(6, 2, "black");
-        board[6][3]  = new Pawn(6, 3, "black");
-        board[6][4]  = new Pawn(6, 4, "black");
-        board[6][5]  = new Pawn(6, 5, "black");
-        board[6][6]  = new Pawn(6, 6, "black");
-        board[6][7]  = new Pawn(6, 7, "black");
+        board[1][0] = new Pawn(1, 0, "white");
+        board[1][1] = new Pawn(1, 1, "white");
+        board[1][2] = new Pawn(1, 2, "white");
+        board[1][3] = new Pawn(1, 3, "white");
+        board[1][4] = new Pawn(1, 4, "white");
+        board[1][5] = new Pawn(1, 5, "white");
+        board[1][6] = new Pawn(1, 6, "white");
+        board[1][7] = new Pawn(1, 7, "white");
+        board[6][0] = new Pawn(6, 0, "black");
+        board[6][1] = new Pawn(6, 1, "black");
+        board[6][2] = new Pawn(6, 2, "black");
+        board[6][3] = new Pawn(6, 3, "black");
+        board[6][4] = new Pawn(6, 4, "black");
+        board[6][5] = new Pawn(6, 5, "black");
+        board[6][6] = new Pawn(6, 6, "black");
+        board[6][7] = new Pawn(6, 7, "black");
         board[0][3] = new Queen(0, 3, "white");
         board[7][3] = new Queen(7, 3, "black");
         board[0][4] = new King(0, 4, "white");
@@ -53,12 +52,13 @@ public class ChessBoard {
         } else System.out.println("Невозможно сделать ход " + x2 + " " + y2);
     }
 
-    public boolean yourOwnFigure(ChessFigure figure) {
-
+    public boolean sameColorFigure(ChessFigure figure01, ChessFigure figure02) {
+        if (figure01.getColor().equals(figure02.getColor())) return true;
+        return false;
     }
 
-    public boolean pathIsClear (int x1, int y1, int x2, int y2) {
-        if(!board[x1][y1].isKnight()) {
+    public boolean pathIsClear(int x1, int y1, int x2, int y2) {
+        if (!board[x1][y1].isKnight()) {
             int dxM = Math.abs(x2 - x1);
             int dyM = Math.abs(y2 - y1);
 
@@ -68,31 +68,43 @@ public class ChessBoard {
             int yMin = Math.min(y1, y2);
             int yMax = Math.max(y1, y2);
 
-            if(dxM == dyM) {
-                for (int i = xMin + 1; i < xMax; i++) {
-                    for (int j = yMin + 1; j < yMax; j++) {
-                        if((xMin == x1 && yMin == y1) || (xMax == x1 && yMax == y1)) {
-                            if(!board[i][i].equals(" _")) return false;
+            if (dxM == dyM) {
+                for (int i = xMin; i <= xMax; i++) {
+                    for (int j = yMin; j <= yMax; j++) {
+                        if ((xMin == x1 && yMin == y1) || (xMax == x1 && yMax == y1)) {
+                            if (!board[i][i].equals(" _") && !board[i][i].equals(board[x1][y1])) {
+                                if(i == x2 && i == y2 && sameColorFigure(board[x1][y1], board[x2][y2]))
+                                    return false;
+                            }
                         }
-                        if((xMax == x1 && yMin == y1) || (xMin == x1 && yMax == y1)) {
-                            if(!board[i][yMax - i - 1].equals(" _")) return false;
+
+                        if ((xMax == x1 && yMin == y1) || (xMin == x1 && yMax == y1)) {
+                            if (!board[i][yMax - i].equals(" _") && !board[i][yMax - i].equals(board[x1][y1]) ) {
+                                if(i == x2 && j == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
+                                    return false;
+                                }
+                            }
                         }
                     }
                 }
             }
 
             if (xMin == xMax) {
-                for (int i = xMin; i <= xMax; i++) {
-                    for (int j = yMin + 1; j < yMax; j++) {
-                        if(!board[i][j].equals(" _")) return false;
+                for (int j = yMin; j <= yMax; j++) {
+                    if (!board[xMin][j].equals(" _") && !board[xMin][j].equals(board[x1][y1])) {
+                        if(xMin == x2 && j == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
+                            return false;
+                        }
                     }
                 }
             }
 
             if (yMin == yMax) {
-                for (int i = xMin + 1; i < xMax; i++) {
-                    for (int j = yMin; j <= yMax; j++) {
-                        if(!board[i][j].equals(" _")) return false;
+                for (int i = xMin; i <= xMax; i++) {
+                    if (!board[i][yMin].equals(" _") && !board[i][yMin].equals(board[x1][y1])) {
+                        if(i == x2 && yMin == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
+                            return false;
+                        }
                     }
                 }
             }
@@ -102,7 +114,7 @@ public class ChessBoard {
 
     @Override
     public String toString() {
-        StringBuilder s =new StringBuilder();
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (board[i][j] == null) {
