@@ -5,6 +5,11 @@ public class Rook extends ChessFigure {
         return false;
     }
 
+    @Override
+    public boolean isPawn() {
+        return false;
+    }
+
     public Rook(int x, int y, String color) {
         super(x, y, color);
     }

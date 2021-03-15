@@ -5,6 +5,11 @@ public class Queen extends ChessFigure {
     }
 
     @Override
+    public boolean isPawn() {
+        return false;
+    }
+
+    @Override
     public boolean can(int x, int y) {
         int dx = x - getX();
         int dy = y - getY();

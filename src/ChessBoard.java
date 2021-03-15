@@ -58,6 +58,19 @@ public class ChessBoard {
     }
 
     public boolean pathIsClear(int x1, int y1, int x2, int y2) {
+
+        if (board[x1][y1].isPawn()) {
+            int dx = x2 - x1;
+            int dy = y2 - y1;
+            int Mdx = Math.abs(dx);
+            int Mdy = Math.abs(dy);
+            if(y1 == y2 && board[x2][y2] == null) return true;
+            if(Mdx == Mdy && board[x2][y2] != null && !sameColorFigure(board[x1][y1], board[x2][y2])) {
+                    return true;
+            }
+            return false;
+        }
+
         if (!board[x1][y1].isKnight()) {
             int dxM = Math.abs(x2 - x1);
             int dyM = Math.abs(y2 - y1);
@@ -109,6 +122,14 @@ public class ChessBoard {
                         }
                     }
                 }
+            }
+        } else {
+            try {
+                if (sameColorFigure(board[x1][y1], board[x2][y2])) {
+                    return false;
+                }
+            } catch (NullPointerException e) {
+                return true;
             }
         }
         return true;

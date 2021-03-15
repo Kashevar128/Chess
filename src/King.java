@@ -5,6 +5,11 @@ public class King extends ChessFigure {
     }
 
     @Override
+    public boolean isPawn() {
+        return false;
+    }
+
+    @Override
     public boolean can(int x, int y) {
         if (isInBoard()) {
             int dx = x - getX();

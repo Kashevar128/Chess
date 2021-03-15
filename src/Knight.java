@@ -15,6 +15,11 @@ public class Knight extends ChessFigure {
         return true;
     }
 
+    @Override
+    public boolean isPawn() {
+        return false;
+    }
+
     public Knight(int x, int y, String color) {
         super(x, y, color);
     }
