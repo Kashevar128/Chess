@@ -72,14 +72,14 @@ public class ChessBoard {
                 for (int i = xMin; i <= xMax; i++) {
                     for (int j = yMin; j <= yMax; j++) {
                         if ((xMin == x1 && yMin == y1) || (xMax == x1 && yMax == y1)) {
-                            if (!board[i][i].equals(" _") && !board[i][i].equals(board[x1][y1])) {
+                            if (!(board[i][i] == null) && !board[i][i].equals(board[x1][y1])) {
                                 if(i == x2 && i == y2 && sameColorFigure(board[x1][y1], board[x2][y2]))
                                     return false;
                             }
                         }
 
                         if ((xMax == x1 && yMin == y1) || (xMin == x1 && yMax == y1)) {
-                            if (!board[i][yMax - i].equals(" _") && !board[i][yMax - i].equals(board[x1][y1]) ) {
+                            if (!(board[i][yMax - i] == null) && !board[i][yMax - i].equals(board[x1][y1]) ) {
                                 if(i == x2 && j == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
                                     return false;
                                 }
@@ -90,9 +90,10 @@ public class ChessBoard {
             }
 
             if (xMin == xMax) {
+                int i = xMin;
                 for (int j = yMin; j <= yMax; j++) {
-                    if (!board[xMin][j].equals(" _") && !board[xMin][j].equals(board[x1][y1])) {
-                        if(xMin == x2 && j == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
+                    if (!(board[i][j] == null) && !board[i][j].equals(board[x1][y1])) {
+                        if(i == x2 && j == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
                             return false;
                         }
                     }
@@ -100,8 +101,9 @@ public class ChessBoard {
             }
 
             if (yMin == yMax) {
+                int j = yMin;
                 for (int i = xMin; i <= xMax; i++) {
-                    if (!board[i][yMin].equals(" _") && !board[i][yMin].equals(board[x1][y1])) {
+                    if (!(board[i][j] == null) && !board[i][j].equals(board[x1][y1])) {
                         if(i == x2 && yMin == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
                             return false;
                         }
