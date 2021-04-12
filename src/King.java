@@ -14,7 +14,9 @@ public class King extends ChessFigure {
         if (isInBoard()) {
             int dx = x - getX();
             int dy = y - getY();
-            return (dy == 0 && dx == 1) || (dx == 0 && dy == 1) || (dx == 1 && dy == 1);
+            int dxM = Math.abs(dx);
+            int dyM = Math.abs(dy);
+            return (dyM == 0 && dxM == 1) || (dxM == 0 && dyM == 1) || (dxM == 1 && dyM == 1);
         }
         return false;
     }

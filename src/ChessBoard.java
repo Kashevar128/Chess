@@ -43,14 +43,23 @@ public class ChessBoard {
     }
 
     public void moveOrEat(int x1, int y1, int x2, int y2) {
+        ChessFigure figure = null;
+
         if (isInBoard(x1, y1) && board[x1][y1] != null &&
-                board[x1][y1].can(x2, y2) && pathIsClear(x1, y1, x2, y2)) {
-            ChessFigure figure = board[x1][y1];
+                board[x1][y1].can(x2, y2)  && pathIsClear(x1, y1, x2, y2) ) {
+            figure = board[x1][y1];
             board[x2][y2] = figure;
             figure.setXY(x2, y2);
             board[x1][y1] = null;
+
+            if (killTheKing(figure, board)) {
+                if (figure.getColor() == "white") System.out.println("Шах королю черных");
+                else System.out.println("Шах королю белых");
+            }
         } else System.out.println("Невозможно сделать ход " + x2 + " " + y2);
     }
+
+
 
     public boolean sameColorFigure(ChessFigure figure01, ChessFigure figure02) {
         if (figure01.getColor().equals(figure02.getColor())) return true;
@@ -64,9 +73,9 @@ public class ChessBoard {
             int dy = y2 - y1;
             int Mdx = Math.abs(dx);
             int Mdy = Math.abs(dy);
-            if(y1 == y2 && board[x2][y2] == null) return true;
-            if(Mdx == Mdy && board[x2][y2] != null && !sameColorFigure(board[x1][y1], board[x2][y2])) {
-                    return true;
+            if (y1 == y2 && board[x2][y2] == null) return true;
+            if (Mdx == Mdy && board[x2][y2] != null && !sameColorFigure(board[x1][y1], board[x2][y2])) {
+                return true;
             }
             return false;
         }
@@ -82,23 +91,25 @@ public class ChessBoard {
             int yMax = Math.max(y1, y2);
 
             if (dxM == dyM) {
+                int count = 0;
                 for (int i = xMin; i <= xMax; i++) {
                     for (int j = yMin; j <= yMax; j++) {
                         if ((xMin == x1 && yMin == y1) || (xMax == x1 && yMax == y1)) {
                             if (!(board[i][i] == null) && !board[i][i].equals(board[x1][y1])) {
-                                if(i == x2 && i == y2 && sameColorFigure(board[x1][y1], board[x2][y2]))
+                                if (i == x2 && i == y2 && sameColorFigure(board[x1][y1], board[x2][y2]))
                                     return false;
                             }
                         }
 
                         if ((xMax == x1 && yMin == y1) || (xMin == x1 && yMax == y1)) {
-                            if (!(board[i][yMax - i] == null) && !board[i][yMax - i].equals(board[x1][y1]) ) {
-                                if(i == x2 && j == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
+                            if (!(board[i][yMax - count] == null) && !board[i][yMax - count].equals(board[x1][y1])) {
+                                if (i == x2 && j == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
                                     return false;
                                 }
                             }
                         }
                     }
+                    count++;
                 }
             }
 
@@ -106,7 +117,7 @@ public class ChessBoard {
                 int i = xMin;
                 for (int j = yMin; j <= yMax; j++) {
                     if (!(board[i][j] == null) && !board[i][j].equals(board[x1][y1])) {
-                        if(i == x2 && j == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
+                        if (i == x2 && j == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
                             return false;
                         }
                     }
@@ -117,7 +128,7 @@ public class ChessBoard {
                 int j = yMin;
                 for (int i = xMin; i <= xMax; i++) {
                     if (!(board[i][j] == null) && !board[i][j].equals(board[x1][y1])) {
-                        if(i == x2 && yMin == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
+                        if (i == x2 && yMin == y2 && sameColorFigure(board[x1][y1], board[x2][y2])) {
                             return false;
                         }
                     }
@@ -133,6 +144,20 @@ public class ChessBoard {
             }
         }
         return true;
+    }
+
+    public boolean killTheKing(ChessFigure figure, ChessFigure[][] board) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] != null) {
+                    if (board[i][j].getClass().equals(King.class) && !board[i][j].getColor().equals(figure.getColor())
+                            && figure.can(i, j) && pathIsClear(figure.x, figure.y, i, j )) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override

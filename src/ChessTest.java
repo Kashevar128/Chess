@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class ChessTest {
     public static void main(String[] args) {
+
         ChessBoard board = new ChessBoard();
         System.out.println(board);
         Scanner in = new Scanner(System.in);
