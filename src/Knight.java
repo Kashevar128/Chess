@@ -20,6 +20,12 @@ public class Knight extends ChessFigure {
         return false;
     }
 
+    @Override
+    public boolean isKing() {
+        return false;
+    }
+
+
     public Knight(int x, int y, String color) {
         super(x, y, color);
     }

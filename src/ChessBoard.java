@@ -44,6 +44,20 @@ public class ChessBoard {
 
     public void moveOrEat(int x1, int y1, int x2, int y2) {
         ChessFigure figure = null;
+        if(board[x1][y1] != null) {
+            if(board[x1][y1].isKing()) {
+                for (int i = 0; i < board.length; i++) {
+                    for (int j = 0; j < board.length; j++) {
+                        if(board[i][j] != null) {
+                            if(board[i][j].can(x2, y2) && pathIsClear(i, j, x2, y2) && !sameColorFigure(board[i][j], board[x1][y1])) {
+                                System.out.println("Король не может ходить под удар");
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         if (isInBoard(x1, y1) && board[x1][y1] != null &&
                 board[x1][y1].can(x2, y2)  && pathIsClear(x1, y1, x2, y2) ) {
@@ -150,7 +164,7 @@ public class ChessBoard {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j] != null) {
-                    if (board[i][j].getClass().equals(King.class) && !board[i][j].getColor().equals(figure.getColor())
+                    if (board[i][j].getClass().equals(King.class) && !sameColorFigure(board[i][j], figure)
                             && figure.can(i, j) && pathIsClear(figure.x, figure.y, i, j )) {
                         return true;
                     }

@@ -10,6 +10,11 @@ public class Rook extends ChessFigure {
         return false;
     }
 
+    @Override
+    public boolean isKing() {
+        return false;
+    }
+
     public Rook(int x, int y, String color) {
         super(x, y, color);
     }

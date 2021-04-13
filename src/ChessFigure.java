@@ -24,6 +24,8 @@ public abstract class ChessFigure {
 
     public abstract boolean isPawn();
 
+    public abstract boolean isKing();
+
     public ChessFigure (int x, int y, String color) {
         this.x = x;
         this.y = y;

@@ -13,6 +13,11 @@ public class Pawn extends ChessFigure {
     }
 
     @Override
+    public boolean isKing() {
+        return false;
+    }
+
+    @Override
     public boolean can(int x, int y) {
         countUsage++;
         int dx = x - getX();

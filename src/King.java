@@ -10,6 +10,11 @@ public class King extends ChessFigure {
     }
 
     @Override
+    public boolean isKing() {
+        return true;
+    }
+
+    @Override
     public boolean can(int x, int y) {
         if (isInBoard()) {
             int dx = x - getX();
